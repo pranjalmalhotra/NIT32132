@@ -1,5 +1,6 @@
 package com.app.nit3213.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -40,6 +41,7 @@ class DashboardActivity : AppCompatActivity() {
         mainViewModel.dashboardResult.observe(this) { dashboard ->
             if (dashboard != null) {
                 val adapter=DashboardAdapter(dashboard.entities,this) {
+                    startActivity(Intent(this,DetailActivity::class.java).putExtra("item",it))
 
                 }
                 binding.tvEntities.text="Entities (${dashboard.entityTotal})"

@@ -4,4 +4,5 @@
     <string name="welcome">Welcome Back!</string>
     <string name="login">Login</string>
     <string name="tap_to_open"><u>Tap to Open Details</u></string>
+    <string name="goBack">Go Back</string>
 </resources>
