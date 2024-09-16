@@ -1,5 +1,6 @@
-package com.app.nit3213
+package com.app.nit3213.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -8,13 +9,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.app.nit3213.R
 import com.app.nit3213.databinding.ActivityMainBinding
 import com.app.nit3213.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val authViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var binding:ActivityMainBinding
     private val location = "sydney"
 
@@ -32,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         binding.tvLogin.setOnClickListener {
             validateFields()
         }
-        val username = "Pranjal"
-        val password = "s4667717"
     }
 
     private fun validateFields() {
@@ -54,20 +54,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun loginUser(username: String, password: String) {
         Log.wtf("testing","$username $password $location")
-        authViewModel.login(location, username, password)
+        mainViewModel.login(location, username, password)
         setUpObserver()
     }
 
     private fun setUpObserver() {
-        authViewModel.authResult.observe(this) { authResponse ->
+        mainViewModel.authResult.observe(this) { authResponse ->
             if (authResponse != null) {
-                Toast.makeText(this, "${authResponse.keypass}", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this,DashboardActivity::class.java).putExtra("keypass",authResponse.keypass))
+                finish()
             }
         }
 
-        authViewModel.isLoading.observe(this) { isLoading -> }
+        mainViewModel.isLoading.observe(this) { isLoading -> }
 
-        authViewModel.errorMessage.observe(this) { error ->
+        mainViewModel.errorMessage.observe(this) { error ->
             if (error != null) {
                 Toast.makeText(this, "Invalid Username or Password", Toast.LENGTH_LONG).show()
             }

@@ -3,4 +3,5 @@
     <string name="login_desc">To get connected with us please login with your personal information</string>
     <string name="welcome">Welcome Back!</string>
     <string name="login">Login</string>
+    <string name="tap_to_open"><u>Tap to Open Details</u></string>
 </resources>
